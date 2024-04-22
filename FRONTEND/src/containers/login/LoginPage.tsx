@@ -4,28 +4,13 @@ import Layout from "@/component/Layout/Layout";
 import Image from "next/image"
 import axios from 'axios'
 import kakaoLoginImage from "@/public/assets/kakao_login_large_narrow.png"
-import { styled } from "@mui/material"
+import * as style from './index.css'
 import SmallButton from "../../component/Button/SmallButton";
-
-const MainContainer = styled('div')`
-  min-height: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`
-
-const GoJoin = styled('p')`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  color: darkgray;
-  margin-top: 30px;
-`
 
 export default function LoginPage() {
 
   const handleLogin = async () => {
+    console.log('로그인 시작!')
     try {
       const response = await axios.get('http://localhost:8080/auth/Oauth2/KakaoLogin')
       .then(response => {
@@ -44,11 +29,12 @@ export default function LoginPage() {
   };
 
   return (
-    <MainContainer>
+    <div className={style.mainContainer}>
       <Image src={kakaoLoginImage} alt="Kakao Login" />
-      <GoJoin>
-        보유한 아이디가 없으신가요? 카카오톡으로 1초만에 <SmallButton onClick={handleLogin}>가입</SmallButton>하기!
-      </GoJoin>
-    </MainContainer>
+      <p className={style.questionText}>보유한 아이디가 없으신가요?</p>
+      <div className={style.goJoin}>
+        카카오톡으로 1초만에 <SmallButton onClick={handleLogin}>가입</SmallButton>하기!
+      </div>
+    </div>
   )
 }
